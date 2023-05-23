@@ -12,8 +12,8 @@ public class GameTetris {
     final int FIELD_WIDTH = 10;
     final int FIELD_HEIGHT = 18;
     final int START_LOCATION = 180;
-    final int FIELD_DX = 7;
-    final int FIELD_DY = 26;
+    final int FIELD_DX = 17;
+    final int FIELD_DY = 39;
     final int LEFT = 37;
     final int UP = 38;
     final int RIGHT = 39;

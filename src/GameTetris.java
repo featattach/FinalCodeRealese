@@ -4,6 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
+
 public class GameTetris {
 
     final String TITLE_OF_PROGRAM = "Tetris";
@@ -11,7 +12,7 @@ public class GameTetris {
     final int ARC_RADIUS = 6;
     final int FIELD_WIDTH = 10;
     final int FIELD_HEIGHT = 18;
-    final int START_LOCATION = 180;
+    final int START_LOCATION = 800;
     final int FIELD_DX = 17;
     final int FIELD_DY = 39;
     final int LEFT = 37;
@@ -30,7 +31,7 @@ public class GameTetris {
     };
     final int [] SCORES = {100, 300, 700, 1500};
     int gameScores = 0;
-    int [] [] mine = new int [FIELD_HEIGHT + 1][FIELD_WIDTH];
+    int [] [] mine = new int [FIELD_HEIGHT+1][FIELD_WIDTH];
     JFrame frame;
     Canvas canvasPanel = new Canvas();
     Random random = new Random();
@@ -50,14 +51,12 @@ public class GameTetris {
             {1,0,0,1,0,1,1,0,0,0,1,0,0,0,0,1,0,0,1,0},
             {0,1,1,0,0,1,0,0,0,0,0,1,1,0,0,1,0,0,1,0}
     };
-public static void main(String [] args){
-    new GameTetris().go();
-}
+
     void go(){
         frame = new JFrame(TITLE_OF_PROGRAM);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(FIELD_WIDTH * BLOCK_SIZE + FIELD_DX, FIELD_HEIGHT * BLOCK_SIZE + FIELD_DY);
-        frame.setLocation(START_LOCATION, START_LOCATION);
+        frame.setLocation(START_LOCATION, 300);
         frame.setResizable(false);
         canvasPanel.setBackground(Color.black);
 
@@ -75,7 +74,7 @@ public static void main(String [] args){
         frame.getContentPane().add(BorderLayout.CENTER, canvasPanel);
         frame.setVisible(true);
 
-        Arrays.fill(mine[FIELD_HEIGHT], 1);
+        Arrays.fill(mine[FIELD_HEIGHT], 1); //заполнение последней строки шахты еденицами
         //main loop of game
         while (!gameOver){
             try {
@@ -95,25 +94,25 @@ public static void main(String [] args){
     }
     class Figure {
 
-    private ArrayList<Block> figure = new ArrayList<Block>();
-    int[][] shape = new int[4][4];
-    private int type, size , color;
-    private int x =3, y = 0;
+        private ArrayList<Block> figure = new ArrayList<Block>();
+        int[][] shape = new int[4][4];
+        private int type, size , color;
+        private int x =3, y = 0;
 
-    Figure(){
-        type = random.nextInt(SHAPES.length);
-        size = SHAPES[type][4][0];
-        color = SHAPES[type][4][1];
-        if (size == 4) y = -1;
-        for (int i = 0; i < size; i++)
-            System.arraycopy(SHAPES[type][i],0 ,shape[i],0, SHAPES[type][i].length);
-        createFromShape();
+        Figure(){
+            type = random.nextInt(SHAPES.length);
+            size = SHAPES[type][4][0];
+            color = SHAPES[type][4][1];
+            if (size == 4) y = -1;
+            for (int i = 0; i < size; i++)
+                System.arraycopy(SHAPES[type][i],0 ,shape[i],0, SHAPES[type][i].length);
+            createFromShape();
         }
         void createFromShape(){
-        for (int x =0; x < size; x++)
-            for (int y = 0; y < size; y++)
-                if (shape[y][x] == 1) figure.add(new Block(x + this.x, y+ this.y));
-    }
+            for (int x =0; x < size; x++)
+                for (int y = 0; y < size; y++)
+                    if (shape[y][x] == 1) figure.add(new Block(x + this.x, y+ this.y));
+        }
         void checkFilling(){
             int row = FIELD_HEIGHT - 1;
             int countFillRows = 0;
